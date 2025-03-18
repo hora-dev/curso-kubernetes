@@ -1,0 +1,21 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: msvc-usuarios
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/msvc_usuarios?serverTimezone=America/Buenos_Aires&allowPublicKeyRetrieval=false
+    username: root
+    password: My$tr0ngP@ssw0rd!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: false
+    show-sql: true
+
+logging:
+  level:
+    org.hibernate.SQL: debug
