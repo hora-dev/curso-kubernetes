@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,13 @@ public class UsuarioController {
     @PostMapping
     //@ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> crear(@Valid @RequestBody Usuario usuario, BindingResult result) {
+
+        if(service.porEmail(usuario.getEmail()).isPresent()) {
+            return ResponseEntity.badRequest().body(
+                    Map.of("mensaje", "Ya existe un usuario con el email " + usuario.getEmail())
+            );
+        }
+
         if(result.hasErrors()) {
             return validar(result);
         }
@@ -49,8 +57,16 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> editar(@PathVariable Long id, @Valid @RequestBody Usuario usuario, BindingResult result) {
+
         return service.porId(id)
                 .map(usr -> {
+
+                    if(!usuario.getEmail().equalsIgnoreCase(usr.getEmail()) && service.porEmail(usuario.getEmail()).isPresent()) {
+                        return ResponseEntity.badRequest().body(
+                                Map.of("mensaje", "Ya existe un usuario con el email " + usuario.getEmail())
+                        );
+                    }
+
                     if(result.hasErrors()) {
                         return validar(result);
                     }
