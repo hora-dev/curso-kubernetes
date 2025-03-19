@@ -43,15 +43,16 @@ public class UsuarioController {
     //@ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> crear(@Valid @RequestBody Usuario usuario, BindingResult result) {
 
-        if(service.porEmail(usuario.getEmail()).isPresent()) {
+        if(result.hasErrors()) {
+            return validar(result);
+        }
+
+        if(service.existePorEmail(usuario.getEmail())) {
             return ResponseEntity.badRequest().body(
                     Map.of("mensaje", "Ya existe un usuario con el email " + usuario.getEmail())
             );
         }
 
-        if(result.hasErrors()) {
-            return validar(result);
-        }
         return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(usuario));
     }
 
