@@ -1,6 +1,7 @@
 package org.onebit.springcloud.msvc.cursos.services;
 
 import lombok.RequiredArgsConstructor;
+import org.onebit.springcloud.msvc.cursos.models.Usuario;
 import org.onebit.springcloud.msvc.cursos.models.entity.Curso;
 import org.onebit.springcloud.msvc.cursos.repositories.CursoRepository;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CursoServicImpl implements CursoService {
+public class CursoServiceImpl implements CursoService {
 
     private final CursoRepository repository;
 
@@ -37,5 +38,20 @@ public class CursoServicImpl implements CursoService {
     @Transactional
     public void eliminar(Long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Usuario> asignarUsuario(Usuario usuario, Long cursoId) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Usuario> crearUsuario(Usuario usuario, Long cursoId) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Usuario> desasignarUsuario(Usuario usuario, Long cursoId) {
+        return Optional.empty();
     }
 }
