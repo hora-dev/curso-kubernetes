@@ -1,7 +1,7 @@
 package org.onebit.springcloud.msvc.cursos.services;
 
 import lombok.RequiredArgsConstructor;
-import org.onebit.springcloud.msvc.cursos.entity.Curso;
+import org.onebit.springcloud.msvc.cursos.models.entity.Curso;
 import org.onebit.springcloud.msvc.cursos.repositories.CursoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

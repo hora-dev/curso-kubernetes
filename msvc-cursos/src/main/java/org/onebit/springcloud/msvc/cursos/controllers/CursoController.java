@@ -2,7 +2,7 @@ package org.onebit.springcloud.msvc.cursos.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.onebit.springcloud.msvc.cursos.entity.Curso;
+import org.onebit.springcloud.msvc.cursos.models.entity.Curso;
 import org.onebit.springcloud.msvc.cursos.services.CursoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

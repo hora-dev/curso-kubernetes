@@ -1,6 +1,6 @@
 package org.onebit.springcloud.msvc.cursos.services;
 
-import org.onebit.springcloud.msvc.cursos.entity.Curso;
+import org.onebit.springcloud.msvc.cursos.models.entity.Curso;
 
 import java.util.List;
 import java.util.Optional;
