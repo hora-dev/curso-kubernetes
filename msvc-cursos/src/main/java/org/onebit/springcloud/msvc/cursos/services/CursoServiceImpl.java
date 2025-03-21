@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.onebit.springcloud.msvc.cursos.clients.UsuarioClientRest;
 import org.onebit.springcloud.msvc.cursos.models.Usuario;
 import org.onebit.springcloud.msvc.cursos.models.entity.Curso;
+import org.onebit.springcloud.msvc.cursos.models.entity.CursoUsuario;
 import org.onebit.springcloud.msvc.cursos.repositories.CursoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,17 +44,53 @@ public class CursoServiceImpl implements CursoService {
     }
 
     @Override
+    @Transactional
     public Optional<Usuario> asignarUsuario(Usuario usuario, Long cursoId) {
+        Optional<Curso> o = porId(cursoId);
+        if(o.isPresent()) {
+            Usuario usuarioMsvc = clientRest.detalle(usuario.getId());
+
+            Curso curso = o.get();
+            CursoUsuario cursoUsuario = new CursoUsuario();
+            cursoUsuario.setUsuarioId(usuarioMsvc.getId());
+            curso.addCursoUsuario(cursoUsuario);
+            repository.save(curso);
+            return Optional.of(usuarioMsvc);
+        }
         return Optional.empty();
     }
 
     @Override
+    @Transactional
     public Optional<Usuario> crearUsuario(Usuario usuario, Long cursoId) {
+        Optional<Curso> o = porId(cursoId);
+        if(o.isPresent()) {
+            Usuario usuarioNuevoMsvc = clientRest.crear(usuario);
+
+            Curso curso = o.get();
+            CursoUsuario cursoUsuario = new CursoUsuario();
+            cursoUsuario.setUsuarioId(usuarioNuevoMsvc.getId());
+            curso.addCursoUsuario(cursoUsuario);
+            repository.save(curso);
+            return Optional.of(usuarioNuevoMsvc);
+        }
         return Optional.empty();
     }
 
     @Override
+    @Transactional
     public Optional<Usuario> desasignarUsuario(Usuario usuario, Long cursoId) {
+        Optional<Curso> o = porId(cursoId);
+        if(o.isPresent()) {
+            Usuario usuarioMsvc = clientRest.detalle(usuario.getId());
+
+            Curso curso = o.get();
+            CursoUsuario cursoUsuario = new CursoUsuario();
+            cursoUsuario.setUsuarioId(usuarioMsvc.getId());
+            curso.removeCursoUsuario(cursoUsuario);
+            repository.save(curso);
+            return Optional.of(usuarioMsvc);
+        }
         return Optional.empty();
     }
 }

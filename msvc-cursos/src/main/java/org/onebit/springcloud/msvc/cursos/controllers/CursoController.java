@@ -1,7 +1,9 @@
 package org.onebit.springcloud.msvc.cursos.controllers;
 
+import feign.FeignException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.onebit.springcloud.msvc.cursos.models.Usuario;
 import org.onebit.springcloud.msvc.cursos.models.entity.Curso;
 import org.onebit.springcloud.msvc.cursos.services.CursoService;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -68,6 +71,51 @@ public class CursoController {
             errores.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
         });
         return ResponseEntity.badRequest().body(errores);
+    }
+
+    @PutMapping("/asignar-usuario/{cursoId}")
+    public ResponseEntity<?> asignarUsuario(@PathVariable Long cursoId, @RequestBody Usuario usuario) {
+        try {
+            return service.asignarUsuario(usuario, cursoId)
+                    .map(usr -> ResponseEntity.status(HttpStatus.CREATED).body(usr))
+                    .orElseGet(() -> ResponseEntity.notFound().build());
+        } catch (FeignException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("mensaje", "No se pudo crear el usuario " +
+                            "o error en la comunicación con el servicio de usuarios " +
+                            e.getMessage()));
+        }
+    }
+
+    @PostMapping("/crear-usuario/{cursoId}")
+    public ResponseEntity<?> crearUsuario(@PathVariable Long cursoId, @RequestBody Usuario usuario) {
+        try {
+            return service.crearUsuario(usuario, cursoId)
+                    .map(usr -> ResponseEntity.status(HttpStatus.CREATED).body(usr))
+                    .orElseGet(() -> ResponseEntity.notFound().build());
+        } catch (FeignException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("mensaje", "No se pudo crear el usuario " +
+                            "o error en la comunicación con el servicio de usuarios " +
+                            e.getMessage()));
+        }
+    }
+
+    @DeleteMapping("/eliminar-usuario/{cursoId}")
+    public ResponseEntity<?> eliminarUsuario(@PathVariable Long cursoId, @RequestBody Usuario usuario) {
+        try {
+            return service.desasignarUsuario(usuario, cursoId)
+                    .map(usr -> ResponseEntity.ok(usr))
+                    .orElseGet(() -> ResponseEntity.notFound().build());
+        } catch (FeignException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("mensaje", "No existe el usuario " +
+                            "o error en la comunicación con el servicio de usuarios " +
+                            e.getMessage()));
+        }
     }
 
 }

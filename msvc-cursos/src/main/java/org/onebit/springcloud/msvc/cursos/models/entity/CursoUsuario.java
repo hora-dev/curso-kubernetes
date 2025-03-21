@@ -26,6 +26,6 @@ public class CursoUsuario {
         if (!(obj instanceof CursoUsuario))
             return false;
         CursoUsuario that = (CursoUsuario) obj;
-        return this.usuarioId != null && Objects.equals(((CursoUsuario) obj).usuarioId, that.usuarioId);
+        return this.usuarioId != null && Objects.equals(this.usuarioId, that.usuarioId);
     }
 }
