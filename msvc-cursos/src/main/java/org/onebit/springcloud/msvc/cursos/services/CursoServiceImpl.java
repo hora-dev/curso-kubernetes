@@ -1,6 +1,7 @@
 package org.onebit.springcloud.msvc.cursos.services;
 
 import lombok.RequiredArgsConstructor;
+import org.onebit.springcloud.msvc.cursos.clients.UsuarioClientRest;
 import org.onebit.springcloud.msvc.cursos.models.Usuario;
 import org.onebit.springcloud.msvc.cursos.models.entity.Curso;
 import org.onebit.springcloud.msvc.cursos.repositories.CursoRepository;
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class CursoServiceImpl implements CursoService {
 
     private final CursoRepository repository;
+    private final UsuarioClientRest clientRest;
 
     @Override
     @Transactional(readOnly = true)
