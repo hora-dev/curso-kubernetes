@@ -93,4 +93,23 @@ public class CursoServiceImpl implements CursoService {
         }
         return Optional.empty();
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Curso> porIdConUsuarios(Long id) {
+        Optional<Curso> o = porId(id);
+        if(o.isPresent()) {
+            Curso curso = o.get();
+            if(!curso.getCursoUsuarios().isEmpty()) {
+                List<Long> ids = curso.getCursoUsuarios()
+                        .stream()
+                        .map(cursoUsuario -> cursoUsuario.getUsuarioId()).toList();
+
+               List<Usuario> usuarios = clientRest.obtenerAlumnosPorCurso(ids);
+               curso.setUsuarios(usuarios);
+            }
+            return Optional.of(curso);
+        }
+        return Optional.empty();
+    }
 }
