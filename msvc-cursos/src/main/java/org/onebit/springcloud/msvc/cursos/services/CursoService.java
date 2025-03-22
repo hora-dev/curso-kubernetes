@@ -11,6 +11,7 @@ public interface CursoService {
     Optional<Curso> porId(Long id);
     Curso guardar(Curso curso);
     void eliminar(Long id);
+    void eliminarCursoUsuarioPorId(Long id);
 
     // metodos remotos
     Optional<Usuario> asignarUsuario(Usuario usuario, Long cursoId);
