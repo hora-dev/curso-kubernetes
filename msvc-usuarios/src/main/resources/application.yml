@@ -6,7 +6,7 @@ spring:
     name: msvc-usuarios
 
   datasource:
-    url: jdbc:mysql://localhost:3306/msvc_usuarios?serverTimezone=America/Buenos_Aires&allowPublicKeyRetrieval=false
+    url: jdbc:mysql://host.docker.internal:3306/msvc_usuarios?serverTimezone=America/Buenos_Aires&allowPublicKeyRetrieval=false
     username: root
     password: My$tr0ngP@ssw0rd!
     driver-class-name: com.mysql.cj.jdbc.Driver
