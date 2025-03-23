@@ -1,6 +1,7 @@
 package org.onebit.springcloud.msvc.usuarios.services;
 
 import lombok.RequiredArgsConstructor;
+import org.onebit.springcloud.msvc.usuarios.clients.CursoClienteRest;
 import org.onebit.springcloud.msvc.usuarios.models.entity.Usuario;
 import org.onebit.springcloud.msvc.usuarios.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.Optional;
 public class UsuarioServiceImpl implements UsuarioService {
 
     private final UsuarioRepository repository;
+    private final CursoClienteRest clienteRest;
 
     @Override
     @Transactional(readOnly = true)
@@ -37,6 +39,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public void eliminar(Long id) {
         repository.deleteById(id);
+        clienteRest.eliminarCursoUsuarioPorId(id);
     }
 
     @Override
