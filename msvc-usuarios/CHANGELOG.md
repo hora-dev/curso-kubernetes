@@ -1,7 +1,11 @@
 
+# 0.0.3 
+
+- Se guardan los logs en archivo
+
 # 0.0.2
 
-### Para poder enviar comandos desde fuera del contenedor cambiamos ENTRYPOINT por CMD en Dockerfile
+- Para poder enviar comandos desde fuera del contenedor cambiamos ENTRYPOINT por CMD en Dockerfile
 ```
 CMD ["java","-jar","msvc-usuarios-0.0.2.jar"]
 ```

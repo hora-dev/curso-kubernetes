@@ -11,7 +11,7 @@
 
 	<groupId>org.onebit.springcloud.msvc.usuarios</groupId>
 	<artifactId>msvc-usuarios</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<name>msvc-usuarios</name>
 	<description>Proyecto para microservicio usuarios</description>
 	<url/>
