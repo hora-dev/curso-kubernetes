@@ -1,6 +1,10 @@
 server:
     port: ${PORT:8002}
 
+msvc:
+  usuarios:
+    url: ${USUARIOS_URL:msvc-usuarios:8001}
+
 spring:
   application:
     name: msvc-cursos
