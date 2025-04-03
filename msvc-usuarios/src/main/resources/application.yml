@@ -6,10 +6,10 @@ spring:
     name: msvc-usuarios
 
   datasource:
-    url: jdbc:mysql://mysql8:3306/msvc_usuarios?serverTimezone=America/Buenos_Aires&allowPublicKeyRetrieval=false
-    username: root
+    url: jdbc:mysql://${DB_HOST:mysql8}:3306/${DB_DATABASE:msvc_usuarios}?serverTimezone=America/Buenos_Aires&allowPublicKeyRetrieval=false
+    username: ${DB_USERNAME:root}
     #password: My$tr0ngP@ssw0rd!
-    password: 1234
+    password: ${DB_PASSWORD:1234}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:

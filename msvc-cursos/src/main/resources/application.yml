@@ -1,14 +1,14 @@
 server:
-    port: 8002
+    port: ${PORT:8002}
 
 spring:
   application:
     name: msvc-cursos
 
   datasource:
-    url: jdbc:postgresql://postgres14:5432/msvc_cursos
-    username: postgres
-    password: 1234
+    url: jdbc:postgresql://${DB_HOST:postgres14}:5432/${DB_DATABASE:msvc_cursos}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:1234}
     driver-class-name: org.postgresql.Driver
 
   jpa:
