@@ -21,8 +21,8 @@ public class UsuarioController {
     private final UsuarioService service;
 
     @GetMapping
-    public List<Usuario> listar() {
-        return service.listar();
+    public Map<String, List<Usuario>> listar() {
+        return Map.of("usuarios", service.listar());
     }
 
     @GetMapping("/{id}")

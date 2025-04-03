@@ -6,14 +6,15 @@ spring:
     name: msvc-usuarios
 
   datasource:
-    url: jdbc:mysql://host.docker.internal:3306/msvc_usuarios?serverTimezone=America/Buenos_Aires&allowPublicKeyRetrieval=false
+    url: jdbc:mysql://mysql8:3306/msvc_usuarios?serverTimezone=America/Buenos_Aires&allowPublicKeyRetrieval=false
     username: root
-    password: My$tr0ngP@ssw0rd!
+    #password: My$tr0ngP@ssw0rd!
+    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
-    generate-ddl: false
+    generate-ddl: true
     show-sql: true
 
 logging:
