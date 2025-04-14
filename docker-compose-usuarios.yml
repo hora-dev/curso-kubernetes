@@ -1,0 +1,44 @@
+
+services:
+
+  mysql8:
+    container_name: mysql8
+    image: mysql:8
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: msvc_usuarios
+    volumes:
+      - data_mysql:/var/lib/mysql
+    networks:
+      - curso_kubernetes
+
+  msvc-usuarios:
+    container_name: msvc-usuarios
+    image: horaciosalva/usuarios
+#    build:
+#      context: ./
+#      dockerfile: ./msvc-usuarios/Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+     PORT: 8001
+     DB_HOST: mysql8
+     DB_DATABASE: msvc_usuarios
+     DB_USERNAME: root
+     DB_PASSWORD: 1234
+     CURSOS_URL: ec2-3-84-232-94.compute-1.amazonaws.com:8002
+    networks:
+      - curso_kubernetes
+    depends_on:
+      - mysql8
+    restart: always
+
+volumes:
+  data_mysql:
+    name: data_mysql
+
+networks:
+  curso_kubernetes:
+    name: curso_kubernetes
