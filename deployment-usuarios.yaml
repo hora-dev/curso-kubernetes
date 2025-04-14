@@ -17,3 +17,34 @@ spec:
         name: msvc-usuarios
         ports:
         - containerPort: 8001
+        env:
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: msvc-usuarios
+              key: port
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: msvc-usuarios
+              key: db_host
+        - name: DB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: msvc-usuarios
+              key: database
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: msvc-usuarios
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: msvc-usuarios
+              key: password
+        - name: CURSOS_URL
+          valueFrom:
+            configMapKeyRef:
+              name: msvc-usuarios
+              key: cursos_url
