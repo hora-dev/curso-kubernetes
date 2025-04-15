@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.onebit.springcloud.msvc.usuarios.models.entity.Usuario;
 import org.onebit.springcloud.msvc.usuarios.services.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -20,9 +22,16 @@ public class UsuarioController {
 
     private final UsuarioService service;
 
+    @Autowired
+    private Environment env;
+
     @GetMapping
-    public Map<String, List<Usuario>> listar() {
-        return Map.of("usuarios", service.listar());
+    public ResponseEntity<?> listar() {
+        Map<String, Object> body = new HashMap<>();
+        body.put("usuarios", service.listar());
+        body.put("pod_info", env.getProperty("MY_POD_NAME") + ": " + env.getProperty("MY_POD_IP"));
+        return ResponseEntity.ok(body);
+        //return Map.of("usuarios", service.listar());
     }
 
     @GetMapping("/{id}")
