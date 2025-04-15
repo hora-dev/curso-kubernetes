@@ -1,9 +1,9 @@
 server:
   port: ${PORT:8001}
 
-msvc:
-  cursos:
-    url: ${CURSOS_URL:msvc-cursos:8002}
+#msvc:
+  #cursos:
+    #url: ${CURSOS_URL:msvc-cursos:8002}
 
 spring:
   application:
@@ -20,6 +20,13 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     generate-ddl: true
     show-sql: true
+
+  cloud:
+    kubernetes:
+      secrets:
+        enable-api: true
+      discovery:
+        all-namespaces: true
 
 logging:
   level:
